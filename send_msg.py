@@ -9,9 +9,9 @@ channel = connection.channel()
 # 创建一个消息队列，消息队列的名称为task_queue，
 # 这里的第二个参数durable，是对消息队列的设置，
 # 使得RabbitMQ在发生异常退出时发送的消息不会被丢失，该消息会被发送给其他消费者
-channel.queue_declare(queue='mytest', durable=True)
+channel.queue_declare(queue='mytest')
 for i in range(1000):
     channel.basic_publish(exchange='', routing_key='mytest', body=str(i),  # 注意当未定义exchange时，routing_key需和queue的值保持一致
                           properties=pika.BasicProperties(delivery_mode=2))  # mode>=2表示消息的持久化
-print('send success msg to rabbitmq')
+    print('send success msg to rabbitmq   msg--->{}'.format(i))
 connection.close()   # 关闭连接

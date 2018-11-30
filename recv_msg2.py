@@ -7,7 +7,7 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(
     host='127.0.0.1', port=5672, credentials=creds_broker))
 channel = connection.channel()
 
-channel.queue_declare(queue='mytest', durable=True)
+channel.queue_declare(queue='mytest')
 
 
 def callback(ch, method, properties, body):
