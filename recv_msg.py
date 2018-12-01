@@ -19,8 +19,11 @@ def multi_MQ(i):
         回调函数,处理从rabbitmq中取出的消息
         '''
         print(" [process{}] Received {}".format(i, body))
-        time.sleep(random.randint(1, 3))
-        ch.basic_ack(delivery_tag=method.delivery_tag)  # 发送ack消息
+        try:
+            time.sleep(int(body))
+        finally:
+            print('work {} Done!'.format(body))
+            ch.basic_ack(delivery_tag=method.delivery_tag)  # 发送ack消息
 
 
     # 添加不按顺序分配消息的参数===>先来先得

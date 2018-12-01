@@ -15,8 +15,11 @@ def callback(ch, method, properties, body):
     回调函数,处理从rabbitmq中取出的消息
     '''
     print(" [x] Received %r" % body)
-    # time.sleep(5)
-    ch.basic_ack(delivery_tag=method.delivery_tag)  # 发送ack消息
+    try:
+        time.sleep(3)
+    finally:
+        print('work {} Done!'.format(body))
+        ch.basic_ack(delivery_tag=method.delivery_tag)  # 发送ack消息
 
 
 # 添加不按顺序分配消息的参数===>先来先得
